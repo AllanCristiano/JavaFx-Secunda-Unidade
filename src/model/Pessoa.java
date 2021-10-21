@@ -36,6 +36,13 @@ public class Pessoa {
 	public void addBens(Bens bem) {
 		listabens.add(bem);
 	}
+
+	@Override
+	public String toString() {
+		return "Codigo: " + codigo + ", Nome: " + nome;
+	}
+	
+	
 	
 	
 	

@@ -1,19 +1,30 @@
 package gui;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import gui.util.Erro;
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import model.Pessoa;
 
-public class viewController {
+public class viewController implements Initializable {
 	// ___________Variables_____________
 	private String status;
 	private List<Pessoa> listaPessoas = new ArrayList();
+	@FXML
+	private ListView<Pessoa> listview = new ListView();
+	
+	private ObservableList<Pessoa> obs;
 	// ___________Labels_____________
 	@FXML
 	private Label labelStatus;
@@ -63,21 +74,52 @@ public class viewController {
 			listaPessoas.add(pessoa);
 			
 			//______________gera a lista visual____________________
-			for(Pessoa p : listaPessoas) {
-				System.out.println(p.getCodigo() + " " + p.getNome());
-			}
+			listPessoa();
 			
 			
 						
-			status = "Cadatro Realizado";
-			labelStatus.setText(String.format("Status: %s", status));
+			status = "Casdatro Realizado";
+			labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
 		}catch(Erro e) {
 			status = e.getMessage();
-			labelStatus.setText(String.format("Status: %s", status));
+			labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
 		}catch (Exception e) {
 			status = e.getMessage();
-			labelStatus.setText(String.format("Status: %s", status));
+			labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
 		}		
 		
 	}
+	//_________________Excluir Pessoa_____________
+	public void ExcluirPessoa() {		
+		try {
+			Long codigo = Long.valueOf(txtCod.getText());
+			for(Pessoa p : listaPessoas) {
+				if(txtName.getText().equalsIgnoreCase(p.getNome()) && codigo == p.getCodigo()) {
+					listaPessoas.remove(p);
+					listPessoa();	
+				}
+				status = "Excluido com sucesso";
+				labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
+			}
+		}catch (Exception e) {
+			e.getMessage();
+		}
+	}
+
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+		listPessoa();		
+	}
+	
+	public void listPessoa() {
+		for(Pessoa p : listaPessoas) {
+			listview.getItems().add(p);
+		}
+		
+		obs = FXCollections.observableArrayList(listaPessoas);
+		
+		listview.setItems(obs);
+	}
+
+	
 }

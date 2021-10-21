@@ -1,1 +1,23 @@
-/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+.button{
+	-fx-background-color: #201E20;
+	-fx-text-fill: #FFFFFF;	
+}
+.text-field, .button{
+	-fx-border-radius: 30px;
+	-fx-background-radius:30px;
+}
+
+.pane{
+	-fx-background-color: #201E20;
+}
+
+.labelFundo{
+	-fx-background-color: #201E20;
+	-fx-text-fill: #FFFFFF;	
+	-fx-border-radius: 30px;
+	-fx-background-radius:30px;
+}
+
+.estiloLetra{
+	-fx-font-size:20px;
+}
