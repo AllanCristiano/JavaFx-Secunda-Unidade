@@ -23,7 +23,7 @@ public class viewController implements Initializable {
 	private List<Pessoa> listaPessoas = new ArrayList();
 	@FXML
 	private ListView<Pessoa> listview = new ListView();
-	
+
 	private ObservableList<Pessoa> obs;
 	// ___________Labels_____________
 	@FXML
@@ -51,75 +51,102 @@ public class viewController implements Initializable {
 		try {
 			String codigo = txtCod.getText();
 			String nome = txtName.getText().toUpperCase();
-			//____________controle de erros__________
-			if(codigo.isEmpty() || codigo == null) {
+			// ____________controle de erros__________
+			if (codigo.isEmpty() || codigo == null) {
 				throw new Erro("Campo Codigo Vazio");
-			}if(nome.isEmpty() || nome == null) {
-				throw new Erro("Campo Nome Vazio");			
-			}if(!codigo.matches("[+-]?\\d*(\\.\\d+)?")) {
+			}
+			if (nome.isEmpty() || nome == null) {
+				throw new Erro("Campo Nome Vazio");
+			}
+			if (!codigo.matches("[+-]?\\d*(\\.\\d+)?")) {
 				throw new Erro("Campo Codigo Esperava um numero");
 			}
-			
-			//__________convertendo o codigo para long_________
+
+			// __________convertendo o codigo para long_________
 			Long cod = Long.valueOf(codigo);
-			Pessoa pessoa = new Pessoa(cod, nome);			
-			//__________percorrer a lista para checar se o mesmo codigo ja  existe_______________
-			for(Pessoa p : listaPessoas) {
-				if(pessoa.getCodigo() == p.getCodigo()) {
+			Pessoa pessoa = new Pessoa(cod, nome);
+			// __________percorrer a lista para checar se o mesmo codigo ja
+			// existe_______________
+			for (Pessoa p : listaPessoas) {
+				if (pessoa.getCodigo() == p.getCodigo()) {
 					throw new Erro("O codigo ja esta presente na lista");
 				}
 			}
-			
-			//______________adiciona uma pessoa a lista____________
+
+			// ______________adiciona uma pessoa a lista____________
 			listaPessoas.add(pessoa);
-			
-			//______________gera a lista visual____________________
+
+			// ______________gera a lista visual____________________
 			listPessoa();
-			
-			
-						
+
 			status = "Casdatro Realizado";
 			labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
-		}catch(Erro e) {
+		} catch (Erro e) {
 			status = e.getMessage();
 			labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
-		}catch (Exception e) {
+		} catch (Exception e) {
 			status = e.getMessage();
 			labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
-		}		
-		
+		}
+
 	}
-	//_________________Excluir Pessoa_____________
-	public void ExcluirPessoa() {		
+
+	// _________________Excluir Pessoa_____________
+	public void ExcluirPessoa() {
 		try {
 			Long codigo = Long.valueOf(txtCod.getText());
-			for(Pessoa p : listaPessoas) {
-				if(txtName.getText().equalsIgnoreCase(p.getNome()) && codigo == p.getCodigo()) {
+			for (Pessoa p : listaPessoas) {
+				if (txtName.getText().equalsIgnoreCase(p.getNome()) && codigo == p.getCodigo()) {
 					listaPessoas.remove(p);
-					listPessoa();	
+					listPessoa();
 				}
 				status = "Excluido com sucesso";
 				labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.getMessage();
 		}
 	}
 
+	// _______________________inicia junto do projeto
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		listPessoa();		
+		listPessoa();
 	}
-	
+
+	// ________________________listar as pessoas na tela
 	public void listPessoa() {
-		for(Pessoa p : listaPessoas) {
+		for (Pessoa p : listaPessoas) {
 			listview.getItems().add(p);
 		}
-		
+
 		obs = FXCollections.observableArrayList(listaPessoas);
-		
+
 		listview.setItems(obs);
 	}
 
-	
+	public void Pesquisar() {
+		try {
+			Long codigo = Long.valueOf(txtCod.getText());
+			for (Pessoa p : listaPessoas) {
+				if (txtName.getText().equalsIgnoreCase(p.getNome()) && codigo == p.getCodigo()) {
+					
+					obs = FXCollections.observableArrayList(p);
+
+					listview.setItems(obs);
+					
+				}
+				status = "Pesquisa Relizada";
+				labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
+			}
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		
+	}
+
+	public void Longo() {
+		System.out.println("Clique longo");
+	}
+
 }
