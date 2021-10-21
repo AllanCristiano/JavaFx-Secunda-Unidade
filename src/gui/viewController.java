@@ -50,5 +50,6 @@ public class viewController {
 			labelStatus.setText(String.format("Status: %s", status));
 		}
 		
+		
 	}
 }
