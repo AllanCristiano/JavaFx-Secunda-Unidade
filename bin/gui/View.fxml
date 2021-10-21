@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.viewController">
+   <children>
+      <Pane layoutX="-77.0" layoutY="-115.0" prefHeight="600.0" prefWidth="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label alignment="CENTER" layoutX="14.0" layoutY="32.0" prefHeight="44.0" prefWidth="348.0" text="Pessoa">
+               <font>
+                  <Font name="Cambria Bold Italic" size="24.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="14.0" layoutY="89.0" prefHeight="44.0" prefWidth="95.0" text="Codigo">
+               <font>
+                  <Font name="Cambria Bold Italic" size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtCod" layoutX="102.0" layoutY="99.0" prefHeight="25.0" prefWidth="258.0" promptText="Codigo Pessoa" />
+            <Separator layoutX="368.0" layoutY="10.0" orientation="VERTICAL" prefHeight="589.0" prefWidth="0.0" />
+            <Label alignment="CENTER" layoutX="14.0" layoutY="125.0" prefHeight="44.0" prefWidth="95.0" text="Nome">
+               <font>
+                  <Font name="Cambria Bold Italic" size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtName" layoutX="102.0" layoutY="135.0" prefHeight="25.0" prefWidth="258.0" promptText="Nome Pessoa" />
+            <Button layoutX="32.0" layoutY="194.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="155.0" text="Excluir">
+               <font>
+                  <Font name="Cambria Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnCadastro" layoutX="32.0" layoutY="242.0" mnemonicParsing="false" onAction="#CadPessoas" prefHeight="35.0" prefWidth="330.0" text="Cadastrar">
+               <font>
+                  <Font name="Cambria Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button layoutX="207.0" layoutY="194.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="155.0" text="Pesquisar">
+               <font>
+                  <Font name="Cambria Bold" size="14.0" />
+               </font>
+            </Button>
+            <Separator layoutX="32.0" layoutY="302.0" prefHeight="4.0" prefWidth="330.0" />
+            <Label alignment="CENTER" layoutX="23.0" layoutY="306.0" prefHeight="44.0" prefWidth="348.0" text="Bens">
+               <font>
+                  <Font name="Cambria Bold Italic" size="24.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="18.0" layoutY="339.0" prefHeight="44.0" prefWidth="95.0" text="Codigo">
+               <font>
+                  <Font name="Cambria Bold Italic" size="18.0" />
+               </font>
+            </Label>
+            <TextField layoutX="106.0" layoutY="349.0" prefHeight="25.0" prefWidth="251.0" promptText="Codigo Bem" />
+            <Label alignment="CENTER" layoutX="18.0" layoutY="375.0" prefHeight="44.0" prefWidth="95.0" text="Nome">
+               <font>
+                  <Font name="Cambria Bold Italic" size="18.0" />
+               </font>
+            </Label>
+            <TextField layoutX="106.0" layoutY="385.0" prefHeight="25.0" prefWidth="251.0" promptText="Nome Bem" />
+            <Label alignment="CENTER" layoutX="19.0" layoutY="410.0" prefHeight="44.0" prefWidth="95.0" text="Valor">
+               <font>
+                  <Font name="Cambria Bold Italic" size="18.0" />
+               </font>
+            </Label>
+            <TextField layoutX="107.0" layoutY="420.0" prefHeight="25.0" prefWidth="251.0" promptText="R$ 500,00" />
+            <Label alignment="CENTER" layoutX="18.0" layoutY="445.0" prefHeight="44.0" prefWidth="95.0" text="CodProp">
+               <font>
+                  <Font name="Cambria Bold Italic" size="18.0" />
+               </font>
+            </Label>
+            <TextField layoutX="106.0" layoutY="455.0" prefHeight="25.0" prefWidth="251.0" promptText="Codigo Proprietario" />
+            <Button layoutX="32.0" layoutY="514.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="155.0" text="Excluir">
+               <font>
+                  <Font name="Cambria Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button layoutX="207.0" layoutY="514.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="155.0" text="Cadastrar">
+               <font>
+                  <Font name="Cambria Bold" size="14.0" />
+               </font>
+            </Button>
+            <TableView layoutX="380.0" layoutY="12.0" prefHeight="452.0" prefWidth="606.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="C1" />
+                <TableColumn prefWidth="75.0" text="C2" />
+                  <TableColumn prefWidth="75.0" text="C1" />
+              </columns>
+            </TableView>
+            <Label fx:id="labelStatus" alignment="CENTER" layoutX="382.0" layoutY="499.0" prefHeight="65.0" prefWidth="606.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children></Pane>
+   </children>
+</AnchorPane>
