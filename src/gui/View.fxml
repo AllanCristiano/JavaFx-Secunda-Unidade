@@ -13,7 +13,7 @@
 
 <AnchorPane stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.viewController">
    <children>
-      <Pane layoutX="-77.0" layoutY="-115.0" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 0; -fx-border-color: #201E20; -fx-border-width: 2;" stylesheets="@../application/application.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane layoutX="-77.0" layoutY="-115.0" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-radius: 0; -fx-border-color: #201E20; -fx-border-width: 2;" styleClass="planodeFundo" stylesheets="@../application/application.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label alignment="CENTER" layoutX="14.0" layoutY="32.0" prefHeight="44.0" prefWidth="348.0" text="Pessoa">
                <font>
@@ -116,6 +116,11 @@
                   <ListView fx:id="listview" prefHeight="460.0" prefWidth="594.0" styleClass="estiloLetra" />
                </content>
             </ScrollPane>
+            <Button fx:id="btcListar" layoutX="958.0" layoutY="17.0" mnemonicParsing="false" onAction="#listPessoa" prefHeight="30.0" prefWidth="30.0" text="+">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
          </children></Pane>
    </children>
 </AnchorPane>

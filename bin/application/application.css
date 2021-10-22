@@ -21,3 +21,7 @@
 .estiloLetra{
 	-fx-font-size:20px;
 }
+
+.planodeFundo{
+	-fx-background-color: linear-gradient(from 25px 25px to 300px 300px, #E6E6E6, #7A7A7A);
+}

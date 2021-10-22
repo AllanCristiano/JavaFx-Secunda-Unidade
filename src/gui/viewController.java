@@ -44,6 +44,8 @@ public class viewController implements Initializable {
 	private Button btnPesquisa;
 	@FXML
 	private Button btnExcluir;
+	@FXML
+	private Button btcListar;
 
 	// ___________Controllers_____________
 
@@ -81,6 +83,8 @@ public class viewController implements Initializable {
 
 			status = "Casdatro Realizado";
 			labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
+			txtName.setText("");
+			txtCod.setText("");
 		} catch (Erro e) {
 			status = e.getMessage();
 			labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
@@ -102,6 +106,8 @@ public class viewController implements Initializable {
 				}
 				status = "Excluido com sucesso";
 				labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
+				txtName.setText("");
+				txtCod.setText("");
 			}
 		} catch (Exception e) {
 			e.getMessage();
@@ -125,28 +131,32 @@ public class viewController implements Initializable {
 		listview.setItems(obs);
 	}
 
+	// __________pesquisa comparando nome e codigo da pessoa
 	public void Pesquisar() {
 		try {
+
 			Long codigo = Long.valueOf(txtCod.getText());
 			for (Pessoa p : listaPessoas) {
+				// __________________isolar a uma pessoa
 				if (txtName.getText().equalsIgnoreCase(p.getNome()) && codigo == p.getCodigo()) {
-					
+
 					obs = FXCollections.observableArrayList(p);
-
 					listview.setItems(obs);
-					
+					status = "Pesquisa Relizada";
+					labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
+					txtName.setText("");
+					txtCod.setText("");
 				}
-				status = "Pesquisa Relizada";
-				labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
-			}
-		} catch (Exception e) {
-			e.getMessage();
-		}
-		
-	}
 
-	public void Longo() {
-		System.out.println("Clique longo");
+			}
+
+		} catch (Exception e) {
+			//System.out.println(e.getMessage());
+			if(e.getMessage().equals("For input string: \"\"")) {
+				listPessoa();
+			}
+		}
+
 	}
 
 }
