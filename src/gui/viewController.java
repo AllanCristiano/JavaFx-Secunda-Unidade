@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import model.Bens;
 import model.Pessoa;
 
 public class viewController implements Initializable {
@@ -36,7 +37,18 @@ public class viewController implements Initializable {
 	@FXML
 	private TextField txtName;
 
-	// ___________Buttons_____________
+	// ___________TextFields Bens_____________
+
+	@FXML
+	private TextField txtCodBens;
+	@FXML
+	private TextField txtNameBens;
+	@FXML
+	private TextField txtValorBens;
+	@FXML
+	private TextField txtCodPro;
+
+	// ___________Buttons Pessoas_____________
 
 	@FXML
 	private Button btnCadastro;
@@ -47,8 +59,55 @@ public class viewController implements Initializable {
 	@FXML
 	private Button btcListar;
 
+	// ___________Buttons Bens_____________
+
+	@FXML
+	private Button btnCadastroBem;
+	@FXML
+	private Button btnExcluirBem;
+
 	// ___________Controllers_____________
 
+	// _____________cadatrar Bens________
+
+	public void CadastrarBens() {
+		try {
+
+			String codigoBens = txtCodBens.getText();
+			String nomeBens = txtNameBens.getText();
+			Double valor = Double.parseDouble(txtValorBens.getText());
+			int codigoPro = Integer.parseInt(txtCodPro.getText());
+			// ________controle de erros________
+			if (codigoBens == "" || codigoBens == null) {
+				throw new Erro("Campo codigo Bens vazio");
+			}
+			if (nomeBens == "" || nomeBens == null) {
+				throw new Erro("Campo nome Bens vazio");
+			}
+			//___________busca de usuario  para adicionar os bens_____
+			for(Pessoa p : listaPessoas) {
+				if(p.getCodigo() == codigoPro) {					
+					int cod = Integer.parseInt(codigoBens);
+					p.addBens(new Bens(cod, nomeBens, valor));
+					
+					listPessoa();
+					status = "Cadastrado novo bem";
+					labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
+				}
+				
+			}
+			
+
+		} catch (Erro e) {
+			status = e.getMessage();
+			labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
+		} catch (NumberFormatException e) {
+			status = e.getMessage();
+			labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
+		}
+	}
+
+	// _____________cadastrar Pessoas______
 	public void CadPessoas() {
 		try {
 			String codigo = txtCod.getText();
@@ -151,8 +210,8 @@ public class viewController implements Initializable {
 			}
 
 		} catch (Exception e) {
-			//System.out.println(e.getMessage());
-			if(e.getMessage().equals("For input string: \"\"")) {
+			// System.out.println(e.getMessage());
+			if (e.getMessage().equals("For input string: \"\"")) {
 				listPessoa();
 			}
 		}

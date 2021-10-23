@@ -65,7 +65,7 @@
                   <Font name="Cambria Bold Italic" size="18.0" />
                </font>
             </Label>
-            <TextField layoutX="106.0" layoutY="349.0" prefHeight="30.0" prefWidth="255.0" promptText="Codigo Bem">
+            <TextField fx:id="txtCodBens" layoutX="106.0" layoutY="349.0" prefHeight="30.0" prefWidth="255.0" promptText="Codigo Bem">
                <padding>
                   <Insets bottom="2.5" left="15.0" top="2.5" />
                </padding></TextField>
@@ -74,7 +74,7 @@
                   <Font name="Cambria Bold Italic" size="18.0" />
                </font>
             </Label>
-            <TextField layoutX="106.0" layoutY="385.0" prefHeight="30.0" prefWidth="255.0" promptText="Nome Bem">
+            <TextField fx:id="txtNameBens" layoutX="106.0" layoutY="385.0" prefHeight="30.0" prefWidth="255.0" promptText="Nome Bem">
                <padding>
                   <Insets bottom="2.5" left="15.0" top="2.5" />
                </padding></TextField>
@@ -83,7 +83,7 @@
                   <Font name="Cambria Bold Italic" size="18.0" />
                </font>
             </Label>
-            <TextField layoutX="107.0" layoutY="420.0" prefHeight="30.0" prefWidth="255.0" promptText="R$ 500,00">
+            <TextField fx:id="txtValorBens" layoutX="107.0" layoutY="420.0" prefHeight="30.0" prefWidth="255.0" promptText="R$ 500,00">
                <padding>
                   <Insets bottom="2.5" left="15.0" top="2.5" />
                </padding></TextField>
@@ -92,16 +92,16 @@
                   <Font name="Cambria Bold Italic" size="18.0" />
                </font>
             </Label>
-            <TextField layoutX="106.0" layoutY="455.0" prefHeight="30.0" prefWidth="255.0" promptText="Codigo Proprietario">
+            <TextField fx:id="txtCodPro" layoutX="106.0" layoutY="455.0" prefHeight="30.0" prefWidth="255.0" promptText="Codigo Proprietario">
                <padding>
                   <Insets bottom="2.5" left="15.0" top="2.5" />
                </padding></TextField>
-            <Button layoutX="32.0" layoutY="514.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="155.0" text="Excluir">
+            <Button fx:id="btnExcluirBem" layoutX="32.0" layoutY="514.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="155.0" text="Excluir">
                <font>
                   <Font name="Cambria Bold" size="14.0" />
                </font>
             </Button>
-            <Button layoutX="207.0" layoutY="514.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="155.0" text="Cadastrar">
+            <Button fx:id="btnCadastroBem" layoutX="207.0" layoutY="514.0" mnemonicParsing="false" onAction="#CadastrarBens" prefHeight="35.0" prefWidth="155.0" text="Cadastrar">
                <font>
                   <Font name="Cambria Bold" size="14.0" />
                </font>
