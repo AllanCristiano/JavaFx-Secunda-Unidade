@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.lang.model.type.NullType;
+
 public class Pessoa {
 	private Long codigo;
 	private String nome;
@@ -37,19 +39,31 @@ public class Pessoa {
 	public void addBens(Bens bem) {
 		listabens.add(bem);
 	}
+	
+	public void removerBens(int cod, String name, double valor) {
+		for(Bens b : listabens) {
+			
+			if(b.getCodigo() == cod) {
+				listabens.remove(b);
+			}
+			
+		}
+		
+	}
 
 	public List pesquisaPessoa() {
 		List pessoa = new ArrayList<>();
-		pessoa.add("Codigo: " + codigo + " Nome: " + nome);
+		pessoa.add("Codigo: " + codigo + "    Nome: " + nome);
 		for (Bens b : listabens) {
-			pessoa.add("Codigo: " + b.getName() + " Nome: " + b.getName() + " Valor : " + b.getValor());
+			pessoa.add("Codigo: " + b.getCodigo() + "   Nome: " + b.getName() + "   Valor R$: " + b.getValor());
 		}
 		return pessoa;
 	}
 
 	@Override
 	public String toString() {
-		return "Codigo: " + codigo + "   Nome: " + nome + "   ValorBens R$: " + somaBens();
+		return "Codigo: " + codigo + "   Nome: " + nome + "   ValorBens R$: " 
+				+ String.format("%.2f", somaBens());
 	}
 
 	public Double somaBens() {

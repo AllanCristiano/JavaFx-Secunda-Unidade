@@ -72,18 +72,28 @@ public class viewController implements Initializable {
 
 	public void CadastrarBens() {
 		try {
-
 			String codigoBens = txtCodBens.getText();
 			String nomeBens = txtNameBens.getText();
-			Double valor = Double.parseDouble(txtValorBens.getText());
-			int codigoPro = Integer.parseInt(txtCodPro.getText());
+			
+			
+			
 			// ________controle de erros________
 			if (codigoBens == "" || codigoBens == null) {
 				throw new Erro("Campo codigo Bens vazio");
 			}
 			if (nomeBens == "" || nomeBens == null) {
 				throw new Erro("Campo nome Bens vazio");
+			}if(txtValorBens.getText() == null || txtValorBens.getText() == "") {
+				throw new Erro("Campo valor vazio");
 			}
+			if (txtCodPro.getText() == null || txtCodPro.getText() == "") {
+				throw new Erro("Campo codigo proprietario vazio");
+			}
+			Double valor = Double.parseDouble(txtValorBens.getText());
+			int codigoPro = Integer.parseInt(txtCodPro.getText());
+			
+			
+			
 			//___________busca de usuario  para adicionar os bens_____
 			for(Pessoa p : listaPessoas) {
 				if(p.getCodigo() == codigoPro) {					
@@ -95,8 +105,7 @@ public class viewController implements Initializable {
 					labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
 				}
 				
-			}
-			
+			}			
 
 		} catch (Erro e) {
 			status = e.getMessage();
@@ -104,6 +113,57 @@ public class viewController implements Initializable {
 		} catch (NumberFormatException e) {
 			status = e.getMessage();
 			labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
+		}
+	}
+	
+	//_____________Remover bens__________________
+	public void removerBem() {
+		try {
+			
+			String codigoBens = txtCodBens.getText();
+			String nomeBens = txtNameBens.getText();
+			
+			
+			
+			// ________controle de erros________
+			if (codigoBens == "" || codigoBens == null) {
+				throw new Erro("Campo codigo Bens vazio");
+			}
+			if (nomeBens == "" || nomeBens == null) {
+				throw new Erro("Campo nome Bens vazio");
+			}if(txtValorBens.getText() == null || txtValorBens.getText() == "") {
+				throw new Erro("Campo valor vazio");
+			}
+			if (txtCodPro.getText() == null || txtCodPro.getText() == "") {
+				throw new Erro("Campo codigo proprietario vazio");
+			}
+			Double valor = Double.parseDouble(txtValorBens.getText());
+			int codigoPro = Integer.parseInt(txtCodPro.getText());
+			
+			
+			//___________busca de usuario  para adicionar os bens_____
+			for(Pessoa p : listaPessoas) {
+				if(p.getCodigo() == codigoPro) {					
+					int cod = Integer.parseInt(codigoBens);
+					
+					//__________________funcao remover Bens_____________
+					p.removerBens(cod, nomeBens, codigoPro);				
+					
+				}
+							
+			}	
+			
+			
+			
+		}catch (Erro e) {
+			status = e.getMessage();
+			labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
+		}catch (Exception e) {
+			e.getMessage();
+		}finally {
+			status = "Bem Removido";
+			labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
+			listPessoa();
 		}
 	}
 
@@ -198,8 +258,7 @@ public class viewController implements Initializable {
 			for (Pessoa p : listaPessoas) {
 				// __________________isolar a uma pessoa
 				if (txtName.getText().equalsIgnoreCase(p.getNome()) && codigo == p.getCodigo()) {
-
-					obs = FXCollections.observableArrayList(p);
+					obs = FXCollections.observableArrayList(p.pesquisaPessoa());
 					listview.setItems(obs);
 					status = "Pesquisa Relizada";
 					labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
