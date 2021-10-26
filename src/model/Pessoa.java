@@ -15,7 +15,6 @@ public class Pessoa {
 	}
 
 	public Pessoa(Long codigo, String pessoa) {
-		super();
 		this.codigo = codigo;
 		this.nome = pessoa;
 	}
@@ -39,11 +38,11 @@ public class Pessoa {
 	public void addBens(Bens bem) {
 		listabens.add(bem);
 	}
-	
+	//________________remover itens________________
 	public void removerBens(int cod, String name, double valor) {
 		for(Bens b : listabens) {
 			
-			if(b.getCodigo() == cod) {
+			if(b.getCodigo() == cod && b.getName().equalsIgnoreCase(name) && b.getValor() == valor) {
 				listabens.remove(b);
 			}
 			
@@ -55,7 +54,7 @@ public class Pessoa {
 		List pessoa = new ArrayList<>();
 		pessoa.add("Codigo: " + codigo + "    Nome: " + nome);
 		for (Bens b : listabens) {
-			pessoa.add("Codigo: " + b.getCodigo() + "   Nome: " + b.getName() + "   Valor R$: " + b.getValor());
+			pessoa.add("Codigo: " + b.getCodigo() + "   Nome: " + b.getName().toUpperCase() + "   Valor R$: " + b.getValor());
 		}
 		return pessoa;
 	}
