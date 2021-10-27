@@ -8,7 +8,7 @@ public class Pessoa {
 	
 	private Long codigo;
 	private String nome;
-	private List<Bens> listabens = new ArrayList();
+	private List<Bens> listabens = new ArrayList<>();
 
 	public Pessoa() {
 	}
@@ -50,7 +50,7 @@ public class Pessoa {
 	}
 
 	public List pesquisaPessoa() {
-		List pessoa = new ArrayList<>();
+		List<String> pessoa = new ArrayList<>();
 		pessoa.add("Codigo: " + codigo + "    Nome: " + nome);
 		for (Bens b : listabens) {
 			pessoa.add("Codigo: " + b.getCodigo() + "   Nome: " + b.getName().toUpperCase() + "   Valor R$: " + b.getValor());

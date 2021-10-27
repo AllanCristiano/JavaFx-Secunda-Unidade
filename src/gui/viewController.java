@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import gui.util.Erro;
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,15 +14,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import model.Bens;
 import model.Pessoa;
 
 public class viewController implements Initializable {
 	// ___________Variables_____________
 	private String status;
-	private List<Pessoa> listaPessoas = new ArrayList();
+	private List<Pessoa> listaPessoas = new ArrayList<>();
 	@FXML
-	private ListView<Pessoa> listview = new ListView();
+	private ListView<Pessoa> listview = new ListView<>();
 
 	private ObservableList<Pessoa> obs;
 	// ___________Labels_____________
@@ -57,7 +57,7 @@ public class viewController implements Initializable {
 	@FXML
 	private Button btnExcluir;
 	@FXML
-	private Button btcListar;
+	private Button btnClose;
 
 	// ___________Buttons Bens_____________
 
@@ -74,40 +74,36 @@ public class viewController implements Initializable {
 		try {
 			String codigoBens = txtCodBens.getText();
 			String nomeBens = txtNameBens.getText();
-			
-			
-			
+
 			// ________controle de erros________
 			if (codigoBens == "" || codigoBens == null) {
 				throw new Erro("Campo codigo Bens vazio");
 			}
 			if (nomeBens == "" || nomeBens == null) {
 				throw new Erro("Campo nome Bens vazio");
-			}if(txtValorBens.getText() == null || txtValorBens.getText() == "") {
+			}
+			if (txtValorBens.getText() == null || txtValorBens.getText() == "") {
 				throw new Erro("Campo valor vazio");
 			}
 			if (txtCodPro.getText() == null || txtCodPro.getText() == "") {
 				throw new Erro("Campo codigo proprietario vazio");
 			}
-			
+
 			Double valor = Double.parseDouble(txtValorBens.getText());
 			int codigoPro = Integer.parseInt(txtCodPro.getText());
-			
-			
-			
-			//___________busca de usuario  para adicionar os bens_____
-			for(Pessoa p : listaPessoas) {
-				if(p.getCodigo() == codigoPro) {					
+
+			// ___________busca de usuario para adicionar os bens_____
+			for (Pessoa p : listaPessoas) {
+				if (p.getCodigo() == codigoPro) {
 					int cod = Integer.parseInt(codigoBens);
 					p.addBens(new Bens(cod, nomeBens, valor));
-					
+
 					listPessoa();
 					status = "Cadastrado novo bem";
 					status(status);
 				}
-				System.out.println(valor + " " + codigoPro);
-				
-			}			
+
+			}
 
 		} catch (Erro e) {
 			status(e.getMessage());
@@ -115,23 +111,22 @@ public class viewController implements Initializable {
 			status(e.getMessage());
 		}
 	}
-	
-	//_____________Remover bens__________________
+
+	// _____________Remover bens__________________
 	public void removerBem() {
 		try {
-			
+
 			String codigoBens = txtCodBens.getText();
 			String nomeBens = txtNameBens.getText();
-			
-			
-			
+
 			// ________controle de erros________
 			if (codigoBens == "" || codigoBens == null) {
 				throw new Erro("Campo codigo Bens vazio");
 			}
 			if (nomeBens == "" || nomeBens == null) {
 				throw new Erro("Campo nome Bens vazio");
-			}if(txtValorBens.getText() == null || txtValorBens.getText() == "") {
+			}
+			if (txtValorBens.getText() == null || txtValorBens.getText() == "") {
 				throw new Erro("Campo valor vazio");
 			}
 			if (txtCodPro.getText() == null || txtCodPro.getText() == "") {
@@ -139,27 +134,24 @@ public class viewController implements Initializable {
 			}
 			Double valor = Double.parseDouble(txtValorBens.getText());
 			int codigoPro = Integer.parseInt(txtCodPro.getText());
-			
-			
-			//___________busca de usuario  para adicionar os bens_____
-			for(Pessoa p : listaPessoas) {
-				if(p.getCodigo() == codigoPro) {					
+
+			// ___________busca de usuario para adicionar os bens_____
+			for (Pessoa p : listaPessoas) {
+				if (p.getCodigo() == codigoPro) {
 					int cod = Integer.parseInt(codigoBens);
-					
-					//__________________funcao remover Bens_____________
-					p.removerBens(cod, nomeBens, valor);				
-					
+
+					// __________________funcao remover Bens_____________
+					p.removerBens(cod, nomeBens, valor);
+
 				}
-							
-			}	
-			
-			
-			
-		}catch (Erro e) {
+
+			}
+
+		} catch (Erro e) {
 			status(e.getMessage());
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.getMessage();
-		}finally {
+		} finally {
 			status = "Bem Removido";
 			status(status);
 			listPessoa();
@@ -234,6 +226,12 @@ public class viewController implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		listPessoa();
+		
+	}
+	//______________________fechar o programa____________
+	public void sair() {
+		Stage stage = (Stage) btnClose.getScene().getWindow();		
+		stage.close();
 	}
 
 	// ________________________listar as pessoas na tela

@@ -25,3 +25,12 @@
 .planodeFundo{
 	-fx-background-color: linear-gradient(from 25px 25px to 300px 300px, #E6E6E6, #7A7A7A);
 }
+.button.close{
+	-fx-background-color: #ffff;
+	-fx-color-border:#0000;
+	-fx-border-style: solid;
+  	-fx-border-width: 1px;
+  	-fx-text-fill: #E34242;
+  	-fx-font-size: 15px;
+  	-fx-font-weight: bold;
+}
