@@ -89,6 +89,7 @@ public class viewController implements Initializable {
 			if (txtCodPro.getText() == null || txtCodPro.getText() == "") {
 				throw new Erro("Campo codigo proprietario vazio");
 			}
+			
 			Double valor = Double.parseDouble(txtValorBens.getText());
 			int codigoPro = Integer.parseInt(txtCodPro.getText());
 			
@@ -102,17 +103,16 @@ public class viewController implements Initializable {
 					
 					listPessoa();
 					status = "Cadastrado novo bem";
-					labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
+					status(status);
 				}
+				System.out.println(valor + " " + codigoPro);
 				
 			}			
 
 		} catch (Erro e) {
-			status = e.getMessage();
-			labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
+			status(e.getMessage());
 		} catch (NumberFormatException e) {
-			status = e.getMessage();
-			labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
+			status(e.getMessage());
 		}
 	}
 	
@@ -147,7 +147,7 @@ public class viewController implements Initializable {
 					int cod = Integer.parseInt(codigoBens);
 					
 					//__________________funcao remover Bens_____________
-					p.removerBens(cod, nomeBens, codigoPro);				
+					p.removerBens(cod, nomeBens, valor);				
 					
 				}
 							
@@ -156,13 +156,12 @@ public class viewController implements Initializable {
 			
 			
 		}catch (Erro e) {
-			status = e.getMessage();
-			labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
+			status(e.getMessage());
 		}catch (Exception e) {
 			e.getMessage();
 		}finally {
 			status = "Bem Removido";
-			labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
+			status(status);
 			listPessoa();
 		}
 	}
@@ -201,15 +200,13 @@ public class viewController implements Initializable {
 			listPessoa();
 
 			status = "Casdatro Realizado";
-			labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
+			status(status);
 			txtName.setText("");
 			txtCod.setText("");
 		} catch (Erro e) {
-			status = e.getMessage();
-			labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
+			status(status);
 		} catch (Exception e) {
-			status = e.getMessage();
-			labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
+			status(status);
 		}
 
 	}
@@ -224,7 +221,7 @@ public class viewController implements Initializable {
 					listPessoa();
 				}
 				status = "Excluido com sucesso";
-				labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
+				status(status);
 				txtName.setText("");
 				txtCod.setText("");
 			}
@@ -261,7 +258,7 @@ public class viewController implements Initializable {
 					obs = FXCollections.observableArrayList(p.pesquisaPessoa());
 					listview.setItems(obs);
 					status = "Pesquisa Relizada";
-					labelStatus.setText(String.format("Status: %s", status.toUpperCase()));
+					status(status);
 					txtName.setText("");
 					txtCod.setText("");
 				}
@@ -277,4 +274,7 @@ public class viewController implements Initializable {
 
 	}
 
+	public void status(String msg) {
+		labelStatus.setText(String.format("Status: %s", msg.toUpperCase()));
+	}
 }

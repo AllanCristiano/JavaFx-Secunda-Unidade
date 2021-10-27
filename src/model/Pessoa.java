@@ -3,12 +3,11 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.lang.model.type.NullType;
 
 public class Pessoa {
+	
 	private Long codigo;
 	private String nome;
-
 	private List<Bens> listabens = new ArrayList();
 
 	public Pessoa() {
@@ -72,7 +71,6 @@ public class Pessoa {
 
 		}
 		return sum;
-
 	}
 
 }
