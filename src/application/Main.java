@@ -12,7 +12,7 @@ public class Main extends Application {
 	public void start(Stage stage) {
 		try {
 			Parent parent = FXMLLoader.load(getClass().getResource("/gui/View.fxml"));
-			//____________remove table top_____________
+			//____________remove barra topo_____________
 			stage.initStyle(StageStyle.UNDECORATED);
 			Scene scene = new Scene(parent);
 			stage.setScene(scene);

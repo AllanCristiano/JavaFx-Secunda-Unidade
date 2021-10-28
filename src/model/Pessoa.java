@@ -72,5 +72,16 @@ public class Pessoa {
 		}
 		return sum;
 	}
+	//________________________Gerador de String de cada pessoa________________
+	public String salvar() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(getCodigo() + "&&&").append(getNome() );
+			for(Bens b : listabens) {
+				sb.append("&&&" + b.getCodigo() + "&&&" + b.getName() + "&&&" + b.getValor());
+			}
+		
+		
+		return sb.toString();
+	}
 
 }

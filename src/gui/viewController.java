@@ -1,5 +1,9 @@
 package gui;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -207,8 +211,9 @@ public class viewController implements Initializable {
 	public void ExcluirPessoa() {
 		try {
 			Long codigo = Long.valueOf(txtCod.getText());
+			String nome = txtName.getText();
 			for (Pessoa p : listaPessoas) {
-				if (txtName.getText().equalsIgnoreCase(p.getNome()) && codigo == p.getCodigo()) {
+				if (codigo == p.getCodigo() && nome.equalsIgnoreCase(p.getNome())) {
 					listaPessoas.remove(p);
 					listPessoa();
 				}
@@ -225,11 +230,20 @@ public class viewController implements Initializable {
 	// _______________________inicia junto do projeto
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+		carregarDadostxt();
 		listPessoa();
 		
 	}
-	//______________________fechar o programa____________
+	
 	public void sair() {
+		
+		String listaFim = "";
+		//_______________percorre a lista de pessoas gerando strings
+		for(Pessoa p: listaPessoas) {
+			listaFim += p.salvar() + "###";
+		}
+		salvar(listaFim);	
+		//______________________fechar o programa____________
 		Stage stage = (Stage) btnClose.getScene().getWindow();		
 		stage.close();
 	}
@@ -271,7 +285,45 @@ public class viewController implements Initializable {
 		}
 
 	}
-
+	//__________________gera o arquivo txt e salva qunado nescessario____________
+	public void salvar(String pessoaBens) {
+		String path = "bd_pessoas.txt";
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))){
+			bw.write(pessoaBens);
+			bw.newLine();
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		
+	}
+	//_______________carregar os dados do txt_____________
+	public void carregarDadostxt() {
+		String path = "bd_pessoas.txt";
+		try(BufferedReader br = new BufferedReader(new FileReader(path))){
+			
+			String texto = br.readLine();
+			String[] usuarios = texto.split("###");
+			
+			for(String s: usuarios) {
+				String[] pes = s.split("&&&");
+				Long codigo = Long.valueOf(pes[0]);
+				Pessoa pessoa = new Pessoa(codigo, pes[1]);
+				listaPessoas.add(pessoa);
+				for(int i = 2; i < pes.length; i+= 3) {
+					int codigoB = Integer.parseInt(pes[i]);
+					double valorB = Double.parseDouble(pes[i+2]); 
+					Bens bens = new Bens(codigoB, pes[i+1], valorB);
+					pessoa.addBens(bens);
+				}
+			}
+			
+			br.close();
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		
+	}
+	//______________________msg de erro ou sucesso____
 	public void status(String msg) {
 		labelStatus.setText(String.format("Status: %s", msg.toUpperCase()));
 	}
