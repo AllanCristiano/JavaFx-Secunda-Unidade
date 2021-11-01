@@ -49,7 +49,7 @@ public class Pessoa {
 		
 	}
 
-	public List pesquisaPessoa() {
+	public List<?> pesquisaPessoa() {
 		List<String> pessoa = new ArrayList<>();
 		pessoa.add("Codigo: " + codigo + "    Nome: " + nome);
 		for (Bens b : listabens) {

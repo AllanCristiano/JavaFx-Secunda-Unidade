@@ -97,7 +97,8 @@ public class viewController implements Initializable {
 			int codigoPro = Integer.parseInt(txtCodPro.getText());
 
 			// ___________busca de usuario para adicionar os bens_____
-			for (Pessoa p : listaPessoas) {
+					
+			listaPessoas.forEach(p -> {
 				if (p.getCodigo() == codigoPro) {
 					int cod = Integer.parseInt(codigoBens);
 					p.addBens(new Bens(cod, nomeBens, valor));
@@ -106,8 +107,7 @@ public class viewController implements Initializable {
 					status = "Cadastrado novo bem";
 					status(status);
 				}
-
-			}
+			});
 
 		} catch (Erro e) {
 			status(e.getMessage());
@@ -139,8 +139,9 @@ public class viewController implements Initializable {
 			Double valor = Double.parseDouble(txtValorBens.getText());
 			int codigoPro = Integer.parseInt(txtCodPro.getText());
 
-			// ___________busca de usuario para adicionar os bens_____
-			for (Pessoa p : listaPessoas) {
+			// ___________busca de usuario para remover os bens_____
+				
+			listaPessoas.forEach(p -> {
 				if (p.getCodigo() == codigoPro) {
 					int cod = Integer.parseInt(codigoBens);
 
@@ -148,8 +149,7 @@ public class viewController implements Initializable {
 					p.removerBens(cod, nomeBens, valor);
 
 				}
-
-			}
+			});
 
 		} catch (Erro e) {
 			status(e.getMessage());
@@ -234,7 +234,7 @@ public class viewController implements Initializable {
 		listPessoa();
 		
 	}
-	
+	// finaliza programa
 	public void sair() {
 		
 		String listaFim = "";
@@ -250,9 +250,9 @@ public class viewController implements Initializable {
 
 	// ________________________listar as pessoas na tela
 	public void listPessoa() {
-		for (Pessoa p : listaPessoas) {
+		listaPessoas.forEach(p ->{
 			listview.getItems().add(p);
-		}
+		});
 
 		obs = FXCollections.observableArrayList(listaPessoas);
 
@@ -260,6 +260,8 @@ public class viewController implements Initializable {
 	}
 
 	// __________pesquisa comparando nome e codigo da pessoa
+	
+	@SuppressWarnings("unchecked")
 	public void Pesquisar() {
 		try {
 
@@ -267,7 +269,7 @@ public class viewController implements Initializable {
 			for (Pessoa p : listaPessoas) {
 				// __________________isolar a uma pessoa
 				if (txtName.getText().equalsIgnoreCase(p.getNome()) && codigo == p.getCodigo()) {
-					obs = FXCollections.observableArrayList(p.pesquisaPessoa());
+					obs = (ObservableList<Pessoa>) FXCollections.observableArrayList(p.pesquisaPessoa());
 					listview.setItems(obs);
 					status = "Pesquisa Relizada";
 					status(status);
@@ -285,7 +287,7 @@ public class viewController implements Initializable {
 		}
 
 	}
-	//__________________gera o arquivo txt e salva qunado nescessario____________
+	//__________________gera o arquivo txt e salva quando nescessario____________
 	public void salvar(String pessoaBens) {
 		String path = "bd_pessoas.txt";
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))){
@@ -311,8 +313,9 @@ public class viewController implements Initializable {
 				listaPessoas.add(pessoa);
 				for(int i = 2; i < pes.length; i+= 3) {
 					int codigoB = Integer.parseInt(pes[i]);
-					double valorB = Double.parseDouble(pes[i+2]); 
-					Bens bens = new Bens(codigoB, pes[i+1], valorB);
+					double valorB = Double.parseDouble(pes[i+2]);
+					String name = pes[i+1];
+					Bens bens = new Bens(codigoB, name, valorB);
 					pessoa.addBens(bens);
 				}
 			}

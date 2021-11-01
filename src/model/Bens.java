@@ -8,7 +8,7 @@ public class Bens {
 	public Bens() {}
 
 	public Bens(Integer codigo, String name, Double valor) {
-		super();
+		
 		this.codigo = codigo;
 		this.name = name;
 		this.valor = valor;
