@@ -55,7 +55,7 @@ public class viewController implements Initializable {
 	// ___________Buttons Pessoas_____________
 
 	@FXML
-	private Button btnCadastro;
+	public Button btnCadastro;
 	@FXML
 	private Button btnPesquisa;
 	@FXML
@@ -346,10 +346,10 @@ public class viewController implements Initializable {
 			throw new Erro("Campo nome Bens vazio");
 		}
 		if (txtValorBens.getText() == null || txtValorBens.getText() == "") {
-			throw new Erro("Campo valor vazio");
+			throw new Erro("Campo Valor Vazio");
 		}
 		if (txtCodPro.getText() == null || txtCodPro.getText() == "") {
-			throw new Erro("Campo codigo proprietario vazio");
+			throw new Erro("Campo Codigo Proprietario Vazio");
 		}
 	}
 }
