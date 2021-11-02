@@ -1,10 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Fruktur&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
 .button{
 	-fx-background-color: #201E20;
 	-fx-text-fill: #FFFFFF;	
+	-fx-font-family: 'Luckiest Guy', cursive;
+	-fx-font-size: 18px;
 }
 .text-field, .button{
 	-fx-border-radius: 30px;
 	-fx-background-radius:30px;
+}
+text-field{
+	-fx-font-size: 24px;
+}
+
+.font-label{
+	-fx-font-family: 'Fruktur', cursive;
+}
+.status{
+	
+	-fx-text-fill: #FFFFFF;	
+	-fx-background-color: #000000;
 }
 
 .pane{
@@ -19,7 +35,9 @@
 }
 
 .estiloLetra{
-	-fx-font-size:20px;
+	-fx-font-size:24px;
+	-fx-font-family: 'Fruktur', cursive;
+	
 }
 
 .planodeFundo{

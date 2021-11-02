@@ -71,27 +71,19 @@ public class viewController implements Initializable {
 	private Button btnExcluirBem;
 
 	// ___________Controllers_____________
+	
+		
 
 	// _____________cadatrar Bens________
 
 	public void CadastrarBens() {
 		try {
+			
 			String codigoBens = txtCodBens.getText();
 			String nomeBens = txtNameBens.getText();
 
 			// ________controle de erros________
-			if (codigoBens == "" || codigoBens == null) {
-				throw new Erro("Campo codigo Bens vazio");
-			}
-			if (nomeBens == "" || nomeBens == null) {
-				throw new Erro("Campo nome Bens vazio");
-			}
-			if (txtValorBens.getText() == null || txtValorBens.getText() == "") {
-				throw new Erro("Campo valor vazio");
-			}
-			if (txtCodPro.getText() == null || txtCodPro.getText() == "") {
-				throw new Erro("Campo codigo proprietario vazio");
-			}
+			controllErroBens(codigoBens, nomeBens);
 
 			Double valor = Double.parseDouble(txtValorBens.getText());
 			int codigoPro = Integer.parseInt(txtCodPro.getText());
@@ -101,7 +93,7 @@ public class viewController implements Initializable {
 			listaPessoas.forEach(p -> {
 				if (p.getCodigo() == codigoPro) {
 					int cod = Integer.parseInt(codigoBens);
-					p.addBens(new Bens(cod, nomeBens, valor));
+					p.addBens(new Bens(cod, nomeBens.toUpperCase(), valor));
 
 					listPessoa();
 					status = "Cadastrado novo bem";
@@ -124,18 +116,10 @@ public class viewController implements Initializable {
 			String nomeBens = txtNameBens.getText();
 
 			// ________controle de erros________
-			if (codigoBens == "" || codigoBens == null) {
-				throw new Erro("Campo codigo Bens vazio");
-			}
-			if (nomeBens == "" || nomeBens == null) {
-				throw new Erro("Campo nome Bens vazio");
-			}
-			if (txtValorBens.getText() == null || txtValorBens.getText() == "") {
-				throw new Erro("Campo valor vazio");
-			}
-			if (txtCodPro.getText() == null || txtCodPro.getText() == "") {
-				throw new Erro("Campo codigo proprietario vazio");
-			}
+			controllErroBens(codigoBens, nomeBens);
+			
+			
+			
 			Double valor = Double.parseDouble(txtValorBens.getText());
 			int codigoPro = Integer.parseInt(txtCodPro.getText());
 
@@ -150,14 +134,15 @@ public class viewController implements Initializable {
 
 				}
 			});
+			status = "Bem Removido";
+			status(status);
+			
 
 		} catch (Erro e) {
 			status(e.getMessage());
 		} catch (Exception e) {
 			e.getMessage();
-		} finally {
-			status = "Bem Removido";
-			status(status);
+		}finally {
 			listPessoa();
 		}
 	}
@@ -166,41 +151,36 @@ public class viewController implements Initializable {
 	public void CadPessoas() {
 		try {
 			String codigo = txtCod.getText();
-			String nome = txtName.getText().toUpperCase();
+			String nome = txtName.getText();
 			// ____________controle de erros__________
-			if (codigo.isEmpty() || codigo == null) {
-				throw new Erro("Campo Codigo Vazio");
-			}
-			if (nome.isEmpty() || nome == null) {
-				throw new Erro("Campo Nome Vazio");
-			}
-			if (!codigo.matches("[+-]?\\d*(\\.\\d+)?")) {
-				throw new Erro("Campo Codigo Esperava um numero");
-			}
-
+			controllErroPessoa(codigo, nome);
 			// __________convertendo o codigo para long_________
 			Long cod = Long.valueOf(codigo);
-			Pessoa pessoa = new Pessoa(cod, nome);
+			Pessoa pessoa = new Pessoa(cod, nome.toUpperCase());
 			// __________percorrer a lista para checar se o mesmo codigo ja
 			// existe_______________
 			for (Pessoa p : listaPessoas) {
 				if (pessoa.getCodigo() == p.getCodigo()) {
-					throw new Erro("O codigo ja esta presente na lista");
+					throw new Erro("Codigo presente na lista");
+					
 				}
 			}
-
+			
 			// ______________adiciona uma pessoa a lista____________
 			listaPessoas.add(pessoa);
-
-			// ______________gera a lista visual____________________
-			listPessoa();
-
 			status = "Casdatro Realizado";
 			status(status);
 			txtName.setText("");
 			txtCod.setText("");
+
+			
+
+			// ______________gera a lista visual____________________
+			listPessoa();
+
+			
 		} catch (Erro e) {
-			status(status);
+			status(e.getMessage());
 		} catch (Exception e) {
 			status(status);
 		}
@@ -210,6 +190,13 @@ public class viewController implements Initializable {
 	// _________________Excluir Pessoa_____________
 	public void ExcluirPessoa() {
 		try {
+			String codP = txtCod.getText();
+			String nomeP = txtName.getText();
+			// ____________controle de erros__________
+			controllErroPessoa(codP, nomeP);
+			
+			
+			//_____________exluir pessoa_____________
 			Long codigo = Long.valueOf(txtCod.getText());
 			String nome = txtName.getText();
 			for (Pessoa p : listaPessoas) {
@@ -222,7 +209,9 @@ public class viewController implements Initializable {
 				txtName.setText("");
 				txtCod.setText("");
 			}
-		} catch (Exception e) {
+		} catch (Erro e) {
+			status(e.getMessage());
+		}catch (Exception e) {
 			e.getMessage();
 		}
 	}
@@ -264,6 +253,12 @@ public class viewController implements Initializable {
 	@SuppressWarnings("unchecked")
 	public void Pesquisar() {
 		try {
+			String codP = txtCod.getText();
+			String nomeP = txtName.getText();
+			
+			listPessoa();
+			// ____________controle de erros__________
+			controllErroPessoa(codP, nomeP);
 
 			Long codigo = Long.valueOf(txtCod.getText());
 			for (Pessoa p : listaPessoas) {
@@ -279,11 +274,10 @@ public class viewController implements Initializable {
 
 			}
 
-		} catch (Exception e) {
-			// System.out.println(e.getMessage());
-			if (e.getMessage().equals("For input string: \"\"")) {
-				listPessoa();
-			}
+		} catch (Erro e) {
+			status(e.getMessage());
+		}catch (Exception e) {
+			e.getMessage();
 		}
 
 	}
@@ -329,5 +323,33 @@ public class viewController implements Initializable {
 	//______________________msg de erro ou sucesso____
 	public void status(String msg) {
 		labelStatus.setText(String.format("Status: %s", msg.toUpperCase()));
+	}
+	//___________controle erros
+	public void controllErroPessoa(String codigo, String name) throws Erro {
+		if (codigo.isEmpty() || codigo == null) {
+			throw new Erro("Campo Codigo Vazio");
+		}
+		if (name.isEmpty() || name == null) {
+			throw new Erro("Campo Nome Vazio");
+		}
+		if (!codigo.matches("[+-]?\\d*(\\.\\d+)?")) {
+			throw new Erro("Campo Codigo Esperava um numero");
+		}
+
+	}
+	
+	public void controllErroBens(String codigoBens, String nomeBens) throws Erro {
+		if (codigoBens == "" || codigoBens == null) {
+			throw new Erro("Campo codigo Bens vazio");
+		}
+		if (nomeBens == "" || nomeBens == null) {
+			throw new Erro("Campo nome Bens vazio");
+		}
+		if (txtValorBens.getText() == null || txtValorBens.getText() == "") {
+			throw new Erro("Campo valor vazio");
+		}
+		if (txtCodPro.getText() == null || txtCodPro.getText() == "") {
+			throw new Erro("Campo codigo proprietario vazio");
+		}
 	}
 }
