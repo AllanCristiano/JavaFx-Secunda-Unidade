@@ -340,7 +340,7 @@ public class viewController implements Initializable {
 	
 	public void controllErroBens(String codigoBens, String nomeBens) throws Erro {
 		if (codigoBens == "" || codigoBens == null) {
-			throw new Erro("Campo codigo Bens vazio");
+			throw new Erro("Campo codigo Bens vazio1");
 		}
 		if (nomeBens == "" || nomeBens == null) {
 			throw new Erro("Campo nome Bens vazio");
