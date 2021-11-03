@@ -38,14 +38,18 @@ public class Pessoa {
 		listabens.add(bem);
 	}
 	//________________remover itens________________
-	public void removerBens(int cod, String name, double valor) {
+	public String removerBens(int cod, String name, double valor) {
 		for(Bens b : listabens) {
 			
 			if(b.getCodigo() == cod && b.getName().equalsIgnoreCase(name) && b.getValor() == valor) {
 				listabens.remove(b);
+				return "Bem removido";
 			}
 			
+			
 		}
+		return "Bem não encontrado";
+		
 		
 	}
 

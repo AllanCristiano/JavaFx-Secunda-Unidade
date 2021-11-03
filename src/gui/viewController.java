@@ -130,12 +130,11 @@ public class viewController implements Initializable {
 					int cod = Integer.parseInt(codigoBens);
 
 					// __________________funcao remover Bens_____________
-					p.removerBens(cod, nomeBens, valor);
+					status(p.removerBens(cod, nomeBens, valor));
+					
 
 				}
 			});
-			status = "Bem Removido";
-			status(status);
 			
 
 		} catch (Erro e) {
@@ -340,7 +339,7 @@ public class viewController implements Initializable {
 	
 	public void controllErroBens(String codigoBens, String nomeBens) throws Erro {
 		if (codigoBens == "" || codigoBens == null) {
-			throw new Erro("Campo codigo Bens vazio1");
+			throw new Erro("Campo codigo Bens vazio");
 		}
 		if (nomeBens == "" || nomeBens == null) {
 			throw new Erro("Campo nome Bens vazio");
