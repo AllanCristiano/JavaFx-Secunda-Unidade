@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -55,7 +56,7 @@ public class viewController implements Initializable {
 	// ___________Buttons Pessoas_____________
 
 	@FXML
-	public Button btnCadastro;
+	private Button btnCadastro;
 	@FXML
 	private Button btnPesquisa;
 	@FXML
@@ -237,6 +238,7 @@ public class viewController implements Initializable {
 
 	// ________________________listar as pessoas na tela
 	public void listPessoa() {
+		Collections.sort(listaPessoas);
 		listaPessoas.forEach(p ->{
 			listview.getItems().add(p);
 		});

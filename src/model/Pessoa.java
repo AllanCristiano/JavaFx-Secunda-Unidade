@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Pessoa {
+public class Pessoa implements Comparable<Pessoa>{
 	
 	private Long codigo;
 	private String nome;
@@ -38,7 +38,7 @@ public class Pessoa {
 		
 		for(Bens b : listabens) {
 			if(b.getCodigo() == bem.getCodigo() && b.getName().equalsIgnoreCase(bem.getName())) {
-				return "Bem já esta na lista";
+				return "Usuario já possui esse Bem";
 			}
 		}
 		listabens.add(bem);
@@ -94,5 +94,10 @@ public class Pessoa {
 		
 		return sb.toString();
 	}
-
+	// Organizar a lista
+	@Override
+	public int compareTo(Pessoa p1) {
+		return codigo.compareTo(p1.getCodigo()); 
+		//nome.compareToIgnoreCase(p1.getNome());
+	}
 }
