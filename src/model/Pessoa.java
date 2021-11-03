@@ -34,8 +34,15 @@ public class Pessoa {
 		this.nome = pessoa;
 	}
 
-	public void addBens(Bens bem) {
+	public String addBens(Bens bem) {
+		
+		for(Bens b : listabens) {
+			if(b.getCodigo() == bem.getCodigo() && b.getName().equalsIgnoreCase(bem.getName())) {
+				return "Bem já esta na lista";
+			}
+		}
 		listabens.add(bem);
+		return "Bem Cadastrado";
 	}
 	//________________remover itens________________
 	public String removerBens(int cod, String name, double valor) {

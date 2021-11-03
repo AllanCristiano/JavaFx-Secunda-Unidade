@@ -93,11 +93,10 @@ public class viewController implements Initializable {
 			listaPessoas.forEach(p -> {
 				if (p.getCodigo() == codigoPro) {
 					int cod = Integer.parseInt(codigoBens);
-					p.addBens(new Bens(cod, nomeBens.toUpperCase(), valor));
-
+					
+					status(p.addBens(new Bens(cod, nomeBens.toUpperCase(), valor)));
 					listPessoa();
-					status = "Cadastrado novo bem";
-					status(status);
+					
 				}
 			});
 
