@@ -105,6 +105,8 @@ public class viewController implements Initializable {
 			status(e.getMessage());
 		} catch (NumberFormatException e) {
 			status(e.getMessage());
+		}catch (Exception e) {
+			e.getMessage();
 		}
 	}
 

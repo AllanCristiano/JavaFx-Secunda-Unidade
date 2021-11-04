@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Fruktur&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ceviche+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 .button{
 	-fx-background-color: #201E20;
 	-fx-text-fill: #FFFFFF;	
@@ -7,11 +9,19 @@
 	-fx-font-size: 18px;
 }
 .text-field, .button{
-	-fx-border-radius: 30px;
-	-fx-background-radius:30px;
+	-fx-border-radius: 8px;
+	-fx-background-radius: 8px;
 }
-text-field{
-	-fx-font-size: 24px;
+.text-field{
+	-fx-font-size: 20px;
+	-fx-font-family: 'Ceviche One', cursive;
+}
+.barras{
+	-fx-background-color: linear-gradient(from 25px 25px to 300px 300px, #FFFFFF , #10020A);
+}
+.ufs{
+	-fx-font-size: 20px;
+	-fx-font-family: 'Bebas Neue', cursive;
 }
 
 .font-label{
@@ -41,13 +51,10 @@ text-field{
 }
 
 .planodeFundo{
-	-fx-background-color: linear-gradient(from 25px 25px to 300px 300px, #E6E6E6, #7A7A7A);
+	-fx-background-color: linear-gradient(from 25px 25px to 500px 100px, #EEEEEE, #7A7A7A);
 }
-.button.close{
-	-fx-background-color: #ffff;
-	-fx-color-border:#0000;
-	-fx-border-style: solid;
-  	-fx-border-width: 1px;
+.button.close{	
+	-fx-border-style: solid;  
   	-fx-text-fill: #E34242;
   	-fx-font-size: 15px;
   	-fx-font-weight: bold;
