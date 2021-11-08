@@ -19,7 +19,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import model.Bens;
 import model.Pessoa;
 
@@ -72,14 +71,12 @@ public class viewController implements Initializable {
 	private Button btnExcluirBem;
 
 	// ___________Controllers_____________
-	
-		
 
 	// _____________cadatrar Bens________
 
 	public void CadastrarBens() {
 		try {
-			
+
 			String codigoBens = txtCodBens.getText();
 			String nomeBens = txtNameBens.getText();
 
@@ -90,14 +87,14 @@ public class viewController implements Initializable {
 			int codigoPro = Integer.parseInt(txtCodPro.getText());
 
 			// ___________busca de usuario para adicionar os bens_____
-					
+
 			listaPessoas.forEach(p -> {
 				if (p.getCodigo() == codigoPro) {
 					int cod = Integer.parseInt(codigoBens);
-					
+
 					status(p.addBens(new Bens(cod, nomeBens.toUpperCase(), valor)));
 					listPessoa();
-					
+
 				}
 			});
 
@@ -105,7 +102,7 @@ public class viewController implements Initializable {
 			status(e.getMessage());
 		} catch (NumberFormatException e) {
 			status(e.getMessage());
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.getMessage();
 		}
 	}
@@ -119,31 +116,27 @@ public class viewController implements Initializable {
 
 			// ________controle de erros________
 			controllErroBens(codigoBens, nomeBens);
-			
-			
-			
+
 			Double valor = Double.parseDouble(txtValorBens.getText());
 			int codigoPro = Integer.parseInt(txtCodPro.getText());
 
 			// ___________busca de usuario para remover os bens_____
-				
+
 			listaPessoas.forEach(p -> {
 				if (p.getCodigo() == codigoPro) {
 					int cod = Integer.parseInt(codigoBens);
 
 					// __________________funcao remover Bens_____________
 					status(p.removerBens(cod, nomeBens, valor));
-					
 
 				}
 			});
-			
 
 		} catch (Erro e) {
 			status(e.getMessage());
 		} catch (Exception e) {
 			e.getMessage();
-		}finally {
+		} finally {
 			listPessoa();
 		}
 	}
@@ -163,10 +156,10 @@ public class viewController implements Initializable {
 			for (Pessoa p : listaPessoas) {
 				if (pessoa.getCodigo() == p.getCodigo()) {
 					throw new Erro("Codigo presente na lista");
-					
+
 				}
 			}
-			
+
 			// ______________adiciona uma pessoa a lista____________
 			listaPessoas.add(pessoa);
 			status = "Casdatro Realizado";
@@ -174,12 +167,9 @@ public class viewController implements Initializable {
 			txtName.setText("");
 			txtCod.setText("");
 
-			
-
 			// ______________gera a lista visual____________________
 			listPessoa();
 
-			
 		} catch (Erro e) {
 			status(e.getMessage());
 		} catch (Exception e) {
@@ -189,30 +179,44 @@ public class viewController implements Initializable {
 	}
 
 	// _________________Excluir Pessoa_____________
+	@SuppressWarnings("unlikely-arg-type")
 	public void ExcluirPessoa() {
+		
+		
 		try {
 			String codP = txtCod.getText();
 			String nomeP = txtName.getText();
+			
+			
 			// ____________controle de erros__________
 			controllErroPessoa(codP, nomeP);
-			
-			
-			//_____________exluir pessoa_____________
+
+			// _____________exluir pessoa_____________
 			Long codigo = Long.valueOf(txtCod.getText());
-			String nome = txtName.getText();
+			String nome = txtName.getText();	
+			
+
 			for (Pessoa p : listaPessoas) {
+
 				if (codigo == p.getCodigo() && nome.equalsIgnoreCase(p.getNome())) {
+
 					listaPessoas.remove(p);
 					listPessoa();
-				}
-				status = "Excluido com sucesso";
-				status(status);
-				txtName.setText("");
-				txtCod.setText("");
+
+					status = "Excluido com sucesso";
+					status(status);
+					txtName.setText("");
+					txtCod.setText("");
+					return;
+				}		
+
+			}
+			if(!listaPessoas.contains(nome) && !listaPessoas.contains(codigo)) {
+				throw new Erro("Pessoa não consta na lista");
 			}
 		} catch (Erro e) {
 			status(e.getMessage());
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.getMessage();
 		}
 	}
@@ -222,26 +226,28 @@ public class viewController implements Initializable {
 	public void initialize(URL url, ResourceBundle rb) {
 		carregarDadostxt();
 		listPessoa();
-		
+
 	}
+
 	// finaliza programa
 	public void sair() {
-		
+
 		String listaFim = "";
-		//_______________percorre a lista de pessoas gerando strings
-		for(Pessoa p: listaPessoas) {
+		// _______________percorre a lista de pessoas gerando strings
+		for (Pessoa p : listaPessoas) {
 			listaFim += p.salvar() + "###";
 		}
-		salvar(listaFim);	
-		//______________________fechar o programa____________
-		Stage stage = (Stage) btnClose.getScene().getWindow();		
-		stage.close();
+		salvar(listaFim);
+		// ______________________fechar o programa____________
+		// Stage stage = (Stage) btnClose.getScene().getWindow();
+		// stage.close();
+		System.exit(0);
 	}
 
 	// ________________________listar as pessoas na tela
 	public void listPessoa() {
 		Collections.sort(listaPessoas);
-		listaPessoas.forEach(p ->{
+		listaPessoas.forEach(p -> {
 			listview.getItems().add(p);
 		});
 
@@ -251,13 +257,13 @@ public class viewController implements Initializable {
 	}
 
 	// __________pesquisa comparando nome e codigo da pessoa
-	
+
 	@SuppressWarnings("unchecked")
 	public void Pesquisar() {
 		try {
 			String codP = txtCod.getText();
 			String nomeP = txtName.getText();
-			
+
 			listPessoa();
 			// ____________controle de erros__________
 			controllErroPessoa(codP, nomeP);
@@ -272,61 +278,66 @@ public class viewController implements Initializable {
 					status(status);
 					txtName.setText("");
 					txtCod.setText("");
+					return;
 				}
 
 			}
-
+			throw new Erro("Pessoa não encontrada");
 		} catch (Erro e) {
 			status(e.getMessage());
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.getMessage();
 		}
 
 	}
-	//__________________gera o arquivo txt e salva quando nescessario____________
+
+	// __________________gera o arquivo txt e salva quando nescessario____________
 	public void salvar(String pessoaBens) {
 		String path = "bd_pessoas.txt";
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))){
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
 			bw.write(pessoaBens);
 			bw.newLine();
 		} catch (Exception e) {
 			e.getMessage();
 		}
-		
+
 	}
-	//_______________carregar os dados do txt_____________
+
+	// _______________carregar os dados do txt_____________
 	public void carregarDadostxt() {
 		String path = "bd_pessoas.txt";
-		try(BufferedReader br = new BufferedReader(new FileReader(path))){
-			
+		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+
 			String texto = br.readLine();
 			String[] usuarios = texto.split("###");
-			
-			for(String s: usuarios) {
+
+			for (String s : usuarios) {
 				String[] pes = s.split("&&&");
 				Long codigo = Long.valueOf(pes[0]);
 				Pessoa pessoa = new Pessoa(codigo, pes[1]);
 				listaPessoas.add(pessoa);
-				for(int i = 2; i < pes.length; i+= 3) {
+				for (int i = 2; i < pes.length; i += 3) {
 					int codigoB = Integer.parseInt(pes[i]);
-					double valorB = Double.parseDouble(pes[i+2]);
-					String name = pes[i+1];
+					double valorB = Double.parseDouble(pes[i + 2]);
+					String name = pes[i + 1];
 					Bens bens = new Bens(codigoB, name, valorB);
 					pessoa.addBens(bens);
 				}
 			}
-			
+
 			br.close();
 		} catch (Exception e) {
 			e.getMessage();
 		}
-		
+
 	}
-	//______________________msg de erro ou sucesso____
+
+	// ______________________msg de erro ou sucesso____
 	public void status(String msg) {
 		labelStatus.setText(String.format("Status: %s", msg.toUpperCase()));
 	}
-	//___________controle erros
+
+	// ___________controle Error
 	public void controllErroPessoa(String codigo, String name) throws Erro {
 		if (codigo.isEmpty() || codigo == null) {
 			throw new Erro("Campo Codigo Vazio");
@@ -339,7 +350,7 @@ public class viewController implements Initializable {
 		}
 
 	}
-	
+	// ___________controle Error
 	public void controllErroBens(String codigoBens, String nomeBens) throws Erro {
 		if (codigoBens == "" || codigoBens == null) {
 			throw new Erro("Campo codigo Bens vazio");
