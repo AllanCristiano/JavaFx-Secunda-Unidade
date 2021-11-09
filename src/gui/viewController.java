@@ -357,6 +357,9 @@ public class viewController implements Initializable {
 		if (!codigo.matches("[+-]?\\d*(\\.\\d+)?")) {
 			throw new Erro("Campo Codigo Esperava um numero");
 		}
+		if(Long.valueOf(codigo) < 0) {
+			throw new Erro("Codigo deve ser positivo");
+		}
 
 	}
 
