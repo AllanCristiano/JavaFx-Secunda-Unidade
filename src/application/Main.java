@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class Main extends Application {
 	@Override
@@ -13,7 +12,7 @@ public class Main extends Application {
 		try {
 			Parent parent = FXMLLoader.load(getClass().getResource("/gui/View.fxml"));
 			//____________remove barra topo_____________
-			stage.initStyle(StageStyle.UNDECORATED);
+			//stage.initStyle(StageStyle.UNDECORATED);
 			Scene scene = new Scene(parent);
 			stage.setScene(scene);
 			stage.show();

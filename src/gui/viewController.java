@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import gui.util.Erro;
@@ -15,7 +16,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -23,8 +27,6 @@ import model.Bens;
 import model.Pessoa;
 
 public class viewController implements Initializable {
-	// ___________Variables_____________
-	private String status;
 	private List<Pessoa> listaPessoas = new ArrayList<>();
 	@FXML
 	private ListView<Pessoa> listview = new ListView<>();
@@ -87,16 +89,21 @@ public class viewController implements Initializable {
 			int codigoPro = Integer.parseInt(txtCodPro.getText());
 
 			// ___________busca de usuario para adicionar os bens_____
-
-			listaPessoas.forEach(p -> {
+			
+			for(Pessoa p : listaPessoas) {
 				if (p.getCodigo() == codigoPro) {
 					int cod = Integer.parseInt(codigoBens);
-
+					
+					alertaBens(nomeBens, cod, valor, "Cadastrar");
 					status(p.addBens(new Bens(cod, nomeBens.toUpperCase(), valor)));
 					listPessoa();
 
+					return;
+
 				}
-			});
+			}
+
+			throw new Erro("Codigo Proprietario não encontrado");
 
 		} catch (Erro e) {
 			status(e.getMessage());
@@ -121,17 +128,21 @@ public class viewController implements Initializable {
 			int codigoPro = Integer.parseInt(txtCodPro.getText());
 
 			// ___________busca de usuario para remover os bens_____
-
-			listaPessoas.forEach(p -> {
+			
+			for(Pessoa p : listaPessoas) {
 				if (p.getCodigo() == codigoPro) {
 					int cod = Integer.parseInt(codigoBens);
 
 					// __________________funcao remover Bens_____________
+					alertaBens(nomeBens, cod, valor, "Remover");
 					status(p.removerBens(cod, nomeBens, valor));
+					listPessoa();
+					return;			
 
 				}
-			});
+			}
 
+			throw new Erro("Codigo Proprietario não encontrado");
 		} catch (Erro e) {
 			status(e.getMessage());
 		} catch (Exception e) {
@@ -144,36 +155,39 @@ public class viewController implements Initializable {
 	// _____________cadastrar Pessoas______
 	public void CadPessoas() {
 		try {
+			
 			String codigo = txtCod.getText();
 			String nome = txtName.getText();
 			// ____________controle de erros__________
 			controllErroPessoa(codigo, nome);
 			// __________convertendo o codigo para long_________
 			Long cod = Long.valueOf(codigo);
-			Pessoa pessoa = new Pessoa(cod, nome.toUpperCase());
-			// __________percorrer a lista para checar se o mesmo codigo ja
-			// existe_______________
+			Pessoa pessoa = new Pessoa(cod, nome.toUpperCase());			
+			
+			// __________percorrer a lista para checar se o mesmo codigo ja existe_______________
 			for (Pessoa p : listaPessoas) {
 				if (pessoa.getCodigo() == p.getCodigo()) {
 					throw new Erro("Codigo presente na lista");
 
 				}
 			}
+			
+			alerta(nome, cod, "Cadastrar");
 
 			// ______________adiciona uma pessoa a lista____________
 			listaPessoas.add(pessoa);
-			status = "Casdatro Realizado";
-			status(status);
 			txtName.setText("");
 			txtCod.setText("");
 
 			// ______________gera a lista visual____________________
 			listPessoa();
 
+			throw new Erro("Pessoa Cadastrada");
+
 		} catch (Erro e) {
 			status(e.getMessage());
 		} catch (Exception e) {
-			status(status);
+			e.getMessage();
 		}
 
 	}
@@ -181,37 +195,34 @@ public class viewController implements Initializable {
 	// _________________Excluir Pessoa_____________
 	@SuppressWarnings("unlikely-arg-type")
 	public void ExcluirPessoa() {
-		
-		
+
 		try {
 			String codP = txtCod.getText();
 			String nomeP = txtName.getText();
-			
-			
+
 			// ____________controle de erros__________
 			controllErroPessoa(codP, nomeP);
 
 			// _____________exluir pessoa_____________
 			Long codigo = Long.valueOf(txtCod.getText());
-			String nome = txtName.getText();	
-			
+			String nome = txtName.getText();
 
 			for (Pessoa p : listaPessoas) {
 
 				if (codigo == p.getCodigo() && nome.equalsIgnoreCase(p.getNome())) {
-
+					
+					alerta(nomeP, codigo, "Remover");
+					
 					listaPessoas.remove(p);
-					listPessoa();
-
-					status = "Excluido com sucesso";
-					status(status);
 					txtName.setText("");
 					txtCod.setText("");
-					return;
-				}		
+					listPessoa();
+
+					throw new Erro("Pessoa Removida");
+				}
 
 			}
-			if(!listaPessoas.contains(nome) && !listaPessoas.contains(codigo)) {
+			if (!listaPessoas.contains(nome) && !listaPessoas.contains(codigo)) {
 				throw new Erro("Pessoa não consta na lista");
 			}
 		} catch (Erro e) {
@@ -274,11 +285,9 @@ public class viewController implements Initializable {
 				if (txtName.getText().equalsIgnoreCase(p.getNome()) && codigo == p.getCodigo()) {
 					obs = (ObservableList<Pessoa>) FXCollections.observableArrayList(p.pesquisaPessoa());
 					listview.setItems(obs);
-					status = "Pesquisa Relizada";
-					status(status);
-					txtName.setText("");
 					txtCod.setText("");
-					return;
+					txtName.setText("");
+					throw new Erro("Pesquisa realizada");
 				}
 
 			}
@@ -350,6 +359,7 @@ public class viewController implements Initializable {
 		}
 
 	}
+
 	// ___________controle Error
 	public void controllErroBens(String codigoBens, String nomeBens) throws Erro {
 		if (codigoBens == "" || codigoBens == null) {
@@ -363,6 +373,33 @@ public class viewController implements Initializable {
 		}
 		if (txtCodPro.getText() == null || txtCodPro.getText() == "") {
 			throw new Erro("Campo Codigo Proprietario Vazio");
+		}
+	}
+	
+	// Alerts CadPessoa E RemovePessoa
+	
+	public void alerta(String nome, Long codigo, String stf ) throws Erro {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle(stf + " Pessoa");
+		alert.setHeaderText("Deseja "+ stf+ " a seguinte Pessoa");
+		alert.setContentText("Codigo: " + codigo +", Nome: " + nome);
+		Optional<ButtonType> result = alert.showAndWait();
+		
+		if(result.isPresent() && result.get() == ButtonType.CANCEL) {
+			throw new Erro("Operação cancelada");
+		}
+	}
+	
+	// Alerts Bens
+	public void alertaBens(String nome, int codigo, double valor, String stf ) throws Erro {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle(stf + " Bens");
+		alert.setHeaderText("Deseja "+ stf+ " o seguinte Bem");
+		alert.setContentText("Codigo: " + codigo +", Nome: " + nome + " valor: R$" + valor);
+		Optional<ButtonType> result = alert.showAndWait();
+		
+		if(result.isPresent() && result.get() == ButtonType.CANCEL) {
+			throw new Erro("Operação cancelada");
 		}
 	}
 }
