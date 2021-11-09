@@ -93,8 +93,9 @@ public class viewController implements Initializable {
 			for(Pessoa p : listaPessoas) {
 				if (p.getCodigo() == codigoPro) {
 					int cod = Integer.parseInt(codigoBens);
+					String nomeProp = p.getNome();
 					
-					alertaBens(nomeBens, cod, valor, "Cadastrar");
+					alertaBens(nomeBens, cod, valor, nomeProp, "Cadastrar");
 					status(p.addBens(new Bens(cod, nomeBens.toUpperCase(), valor)));
 					listPessoa();
 
@@ -132,9 +133,10 @@ public class viewController implements Initializable {
 			for(Pessoa p : listaPessoas) {
 				if (p.getCodigo() == codigoPro) {
 					int cod = Integer.parseInt(codigoBens);
+					String nomeProp = p.getNome();
 
 					// __________________funcao remover Bens_____________
-					alertaBens(nomeBens, cod, valor, "Remover");
+					alertaBens(nomeBens, cod, valor, nomeProp, "Remover");
 					status(p.removerBens(cod, nomeBens, valor));
 					listPessoa();
 					return;			
@@ -394,10 +396,10 @@ public class viewController implements Initializable {
 	}
 	
 	// Alerts Bens
-	public void alertaBens(String nome, int codigo, double valor, String stf ) throws Erro {
+	public void alertaBens(String nome, int codigo, double valor,String namePro, String stf ) throws Erro {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle(stf + " Bens");
-		alert.setHeaderText("Deseja "+ stf+ " o seguinte Bem");
+		alert.setHeaderText("Deseja "+ stf+ " o seguinte Bem para: " + namePro );
 		alert.setContentText("Codigo: " + codigo +", Nome: " + nome + " valor: R$" + valor);
 		Optional<ButtonType> result = alert.showAndWait();
 		
