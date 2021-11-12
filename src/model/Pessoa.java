@@ -37,7 +37,7 @@ public class Pessoa implements Comparable<Pessoa>{
 	public String addBens(Bens bem) {
 		
 		for(Bens b : listabens) {
-			if(b.getCodigo() == bem.getCodigo() && b.getName().equalsIgnoreCase(bem.getName())) {
+			if(b.getCodigo() == bem.getCodigo() && b.getName().equalsIgnoreCase(bem.getName()) && b.getValor().equals(bem.getValor())) {
 				return "Usuario já possui esse Bem";
 			}
 		}
@@ -89,8 +89,7 @@ public class Pessoa implements Comparable<Pessoa>{
 		sb.append(getCodigo() + "&&&").append(getNome() );
 			for(Bens b : listabens) {
 				sb.append("&&&" + b.getCodigo() + "&&&" + b.getName() + "&&&" + b.getValor());
-			}
-		
+			}		
 		
 		return sb.toString();
 	}

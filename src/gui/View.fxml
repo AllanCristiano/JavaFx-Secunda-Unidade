@@ -120,7 +120,7 @@
                   <ListView fx:id="listview" prefHeight="460.0" prefWidth="594.0" styleClass="estiloLetra" />
                </content>
             </ScrollPane>
-            <Button fx:id="btnClose" layoutX="966.0" layoutY="-1.0" mnemonicParsing="false" onAction="#sair" prefHeight="30.0" prefWidth="30.0" styleClass="close" text="X" textFill="#f70a0a" />
+            <Button fx:id="btnClose" layoutX="834.0" layoutY="10.0" mnemonicParsing="false" onAction="#sair" prefHeight="31.0" prefWidth="155.0" styleClass="close" text="Salvar e Sair" textFill="#f70a0a" />
             <ImageView fitHeight="91.0" fitWidth="123.0" layoutX="-9.0" layoutY="-5.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../img/ufs.png" />
