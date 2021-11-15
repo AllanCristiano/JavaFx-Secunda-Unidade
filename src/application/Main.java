@@ -7,21 +7,21 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-	@Override
-	public void start(Stage stage) {
-		try {
-			Parent parent = FXMLLoader.load(getClass().getResource("/gui/View.fxml"));
-			//____________remove barra topo_____________
-			//stage.initStyle(StageStyle.UNDECORATED);
-			Scene scene = new Scene(parent);
-			stage.setScene(scene);
-			stage.show();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+    @Override
+    public void start(Stage stage) {
+        try {
+            Parent parent = FXMLLoader.load(getClass().getResource("/gui/View.fxml"));
+            //____________remove barra topo_____________
+            //stage.initStyle(StageStyle.UNDECORATED);
+            Scene scene = new Scene(parent);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-	public static void main(String[] args) {
-		launch(args);
-	}
+    public static void main(String[] args) {
+        launch(args);
+    }
 }

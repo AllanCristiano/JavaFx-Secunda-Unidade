@@ -1,44 +1,43 @@
 package model;
 
 public class Bens {
-	private Integer codigo;
-	private String name;
-	private Double valor;
-	
-	public Bens() {}
+    private Integer codigo;
+    private String name;
+    private Double valor;
 
-	public Bens(Integer codigo, String name, Double valor) {
-		
-		this.codigo = codigo;
-		this.name = name;
-		this.valor = valor;
-	}
+    public Bens() {
+    }
 
-	public Integer getCodigo() {
-		return codigo;
-	}
+    public Bens(Integer codigo, String name, Double valor) {
 
-	public void setCodigo(Integer codigo) {
-		this.codigo = codigo;
-	}
+        this.codigo = codigo;
+        this.name = name;
+        this.valor = valor;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public Integer getCodigo() {
+        return codigo;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
+    }
 
-	public Double getValor() {
-		return valor;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setValor(Double valor) {
-		this.valor = valor;
-	}
-	
-	
-	
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Double getValor() {
+        return valor;
+    }
+
+    public void setValor(Double valor) {
+        this.valor = valor;
+    }
+
 
 }
