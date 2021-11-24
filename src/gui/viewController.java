@@ -1,33 +1,24 @@
 package gui;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
-
 import gui.util.Erro;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import model.Bens;
 import model.Pessoa;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.net.URL;
+import java.util.*;
+
 public class viewController implements Initializable {
-    private List<Pessoa> listaPessoas = new ArrayList<>();
+    private final List<Pessoa> listaPessoas = new ArrayList<>();
     @FXML
     private ListView<Pessoa> listview = new ListView<>();
 
@@ -245,12 +236,12 @@ public class viewController implements Initializable {
     // finaliza programa
     public void sair() {
 
-        String listaFim = "";
+        StringBuilder listaFim = new StringBuilder();
         // _______________percorre a lista de pessoas gerando strings
         for (Pessoa p : listaPessoas) {
-            listaFim += p.salvar() + "###";
+            listaFim.append(p.salvar()).append("###");
         }
-        salvar(listaFim);
+        salvar(listaFim.toString());
         // ______________________fechar o programa____________
         // Stage stage = (Stage) btnClose.getScene().getWindow();
         // stage.close();
@@ -336,7 +327,6 @@ public class viewController implements Initializable {
                 }
             }
 
-            br.close();
         } catch (Exception e) {
             e.getMessage();
         }
@@ -350,10 +340,10 @@ public class viewController implements Initializable {
 
     // ___________controle Error
     public void controllErroPessoa(String codigo, String name) throws Erro {
-        if (codigo.isEmpty() || codigo == null) {
+        if (codigo.isEmpty()) {
             throw new Erro("Campo Codigo Vazio");
         }
-        if (name.isEmpty() || name == null) {
+        if (name.isEmpty()) {
             throw new Erro("Campo Nome Vazio");
         }
         if (!codigo.matches("[+-]?\\d*(\\.\\d+)?")) {
@@ -367,16 +357,16 @@ public class viewController implements Initializable {
 
     // ___________controle Error
     public void controllErroBens(String codigoBens, String nomeBens) throws Erro {
-        if (codigoBens == "" || codigoBens == null) {
+        if (codigoBens.equalsIgnoreCase("")) {
             throw new Erro("Campo codigo Bens vazio");
         }
-        if (nomeBens == "" || nomeBens == null) {
+        if (nomeBens.equalsIgnoreCase("")) {
             throw new Erro("Campo nome Bens vazio");
         }
-        if (txtValorBens.getText() == null || txtValorBens.getText() == "") {
+        if (txtValorBens.getText() == null || txtValorBens.getText().equalsIgnoreCase("")) {
             throw new Erro("Campo Valor Vazio");
         }
-        if (txtCodPro.getText() == null || txtCodPro.getText() == "") {
+        if (txtCodPro.getText() == null || txtCodPro.getText().equalsIgnoreCase("")) {
             throw new Erro("Campo Codigo Proprietario Vazio");
         }
     }
